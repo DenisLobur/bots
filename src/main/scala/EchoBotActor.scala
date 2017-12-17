@@ -30,7 +30,8 @@ class EchoBotActor extends TelegramBot with Polling with Commands with Actor {
   }
 
   override def receive: Receive = {
-    case sm@SendMessage(UserMessage(userMessage)) => reply(userMessage)(sm.message)
+    case sm@SendMessage(UserMessage(userMessage)) =>
+      reply(userMessage)(sm.message)
     case _ => print("command not found")
   }
 }
@@ -38,7 +39,7 @@ class EchoBotActor extends TelegramBot with Polling with Commands with Actor {
 case class SendMessage(userMessage: UserMessage)(implicit val message: Message)
 
 object EchoBotActor {
-  def props(): Props = Props(new UserActor(userId))
+  def props(): Props = Props(new EchoBotActor())
 }
 
 
